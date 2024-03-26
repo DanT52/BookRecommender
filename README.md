@@ -2,5 +2,8 @@
 
 next steps
 
+use classes
 
-delete a book
+avoid global vars
+
+book recomendation part

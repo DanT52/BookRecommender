@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', domLoaded);
 addBookBtn.addEventListener('click', addBook);
 inputTitle.addEventListener('keypress', handleKeyPress);
 inputAuthor.addEventListener('keypress', handleKeyPress);
-recommendBtn.addEventListener('click', recommendBooks);
+//recommendBtn.addEventListener('click', recommendBooks);
 
 async function domLoaded() {
 
@@ -41,8 +41,8 @@ function updateSignInButton(isLoggedIn) {
 window.addEventListener('message', (event) => {
     // Make sure the message is from your popup and contains the expected data
     if (event.origin === 'http://localhost:5500' && event.data === 'authenticated') {
-        window.location.reload();
         console.log('User authenticated!');
+        window.location.reload();
       // Here, you can update the UI accordingly
     }
 });
