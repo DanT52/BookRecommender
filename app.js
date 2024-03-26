@@ -82,15 +82,6 @@ async function checkAuthStatus() {
 
 
 
-function recommendBooks() {
-    const checkedBooks = document.querySelectorAll('#book-list li.done');
-    checkedBooks.forEach(book => {
-      const title = book.querySelector('span:nth-child(2)').textContent;
-      const author = book.querySelector('.author-text').textContent;
-      console.log(`Title: ${title}, Author: ${author}`);
-    });
-}
-
 function addBook() {
     const bookTitle = inputTitle.value.trim();
     const authorName = inputAuthor.value.trim();
@@ -124,12 +115,12 @@ function addBookItem(bookData) {
     const titleSpan = document.createElement('span');
     const authorSpan = document.createElement('span');
     const deleteBtn = document.createElement('button');
-    const checkbox = document.createElement('input');
 
-    checkbox.type = 'checkbox';
-    checkbox.addEventListener('change', () => {
+    li.addEventListener('click', () => {
         li.classList.toggle('done');
+
     });
+    
 
     titleSpan.textContent = bookData.title;
     authorSpan.textContent = ` by ${bookData.author}`;
@@ -140,7 +131,7 @@ function addBookItem(bookData) {
         removeBook(bookData, li);
     });
 
-    li.appendChild(checkbox);
+
     li.appendChild(titleSpan);
     li.appendChild(authorSpan);
     li.appendChild(deleteBtn);
@@ -237,3 +228,14 @@ async function deleteBook(bookData) {
         console.error('Error:', error);
     }
 }
+
+
+
+// function recommendBooks() {
+//     const checkedBooks = document.querySelectorAll('#book-list li.done');
+//     checkedBooks.forEach(book => {
+//       const title = book.querySelector('span:nth-child(2)').textContent;
+//       const author = book.querySelector('.author-text').textContent;
+//       console.log(`Title: ${title}, Author: ${author}`);
+//     });
+// }
