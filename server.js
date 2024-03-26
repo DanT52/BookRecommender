@@ -97,5 +97,40 @@ app.get('/my-books', (req, res) => {
 
 
 
+app.delete('/delete-book', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'User is not authenticated' });
+  }
+
+  const { title, author } = req.body;
+
+  if (!title || !author) {
+    return res.status(400).json({ message: 'Book title and author are required' });
+  }
+
+  // Use findOne() with a Promise
+  Book.findOne({ title, author, user: req.user._id })
+    .then(book => {
+      if (!book) {
+        // The book either doesn't exist or doesn't belong to the user
+        return res.status(404).json({ message: 'Book not found or unauthorized' });
+      }
+
+      // If book exists, proceed to delete it
+      return Book.deleteOne({ title, author, user: req.user._id });
+    })
+    .then(() => {
+      // Deletion successful
+      res.json({ message: 'Book successfully deleted' });
+    })
+    .catch(err => {
+      // Handle any errors
+      res.status(500).json({ message: 'Error deleting book', error: err });
+    });
+});
+
+
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

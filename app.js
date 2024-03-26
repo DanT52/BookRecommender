@@ -157,6 +157,10 @@ function removeBook(bookData, bookItem) {
         inputBooks.splice(index, 1);
     }
 
+    if (isAuthenticated) {
+        deleteBook(bookData);
+    }
+
 }
 
 async function postBook(bookData) {
@@ -209,5 +213,27 @@ async function fetchMyBooks() {
         });
     } catch (error) {
         console.error('Error fetching books:', error);
+    }
+}
+
+async function deleteBook(bookData) {
+    try {
+        const response = await fetch('http://localhost:3000/delete-book', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bookData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        console.log('Delete result:', result);
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
