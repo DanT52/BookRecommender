@@ -85,6 +85,15 @@ app.post('/add-book', (req, res) => {
     .catch(err => res.status(400).json({ message: 'Error saving book', error: err }));
 });
 
+app.get('/my-books', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({ message: 'User is not authenticated' });
+  }
+
+  Book.find({ user: req.user._id })
+    .then(books => res.json(books))
+    .catch(err => res.status(400).json({ message: 'Error fetching books', error: err }));
+});
 
 
 

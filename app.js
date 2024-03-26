@@ -8,13 +8,24 @@ const recommendBtn = document.getElementById('recommend');
 const signInButton = document.getElementById('login');
 
 let isAuthenticated = false
+let inputBooks = []
 
-document.addEventListener('DOMContentLoaded', checkAuthStatus);
+document.addEventListener('DOMContentLoaded', domLoaded);
 
 addBookBtn.addEventListener('click', addBook);
 inputTitle.addEventListener('keypress', handleKeyPress);
 inputAuthor.addEventListener('keypress', handleKeyPress);
 recommendBtn.addEventListener('click', recommendBooks);
+
+async function domLoaded() {
+
+    await checkAuthStatus(); // Wait for authentication status check to complete
+
+    if (isAuthenticated) {
+        fetchMyBooks();
+    }
+}
+
 
 function updateSignInButton(isLoggedIn) {
     if (isLoggedIn) {
@@ -56,20 +67,19 @@ function handleKeyPress(event) {
     }
 }
 
-function checkAuthStatus() {
-    fetch('http://localhost:3000/auth/status', { credentials: 'include' }) // Ensure credentials are sent with the request
-      .then(response => response.json())
-      .then(data => {
-        if (data.isAuthenticated) {
-          updateSignInButton(true);
-          isAuthenticated = true;
-        } else {
-          updateSignInButton(false);
-          isAuthenticated = false;
-        }
-      })
-      .catch(error => console.error('Error:', error));
+async function checkAuthStatus() {
+    try {
+        const response = await fetch('http://localhost:3000/auth/status', { credentials: 'include' });
+        const data = await response.json();
+        isAuthenticated = data.isAuthenticated; // Update isAuthenticated based on response
+        updateSignInButton(isAuthenticated);
+    } catch (error) {
+        console.error('Error:', error);
+        isAuthenticated = false; // Assume not authenticated if there's an error
+        updateSignInButton(false);
+    }
 }
+
 
 
 function recommendBooks() {
@@ -85,18 +95,31 @@ function addBook() {
     const bookTitle = inputTitle.value.trim();
     const authorName = inputAuthor.value.trim();
 
-    if (bookTitle && authorName) {
-        addBookItem(bookTitle, authorName);
-        inputTitle.value = '';
-        inputAuthor.value = '';
+    if (!(bookTitle && authorName)) {
+        return;
     }
 
+    const bookData = {
+        title: inputTitle.value.trim(),
+        author: inputAuthor.value.trim()
+    };
+
+    if (inputBooks.some(book => book.title === bookData.title && book.author === bookData.author)) {
+        alert("Book already in list.");
+        return;
+    }
+    inputBooks.push(bookData)
+    
+    addBookItem(bookData);
+    inputTitle.value = '';
+    inputAuthor.value = '';
+    
     if (isAuthenticated){
-        postBook(bookTitle, authorName);
+        postBook(bookData);
     }
 }
 
-function addBookItem(title, author) {
+function addBookItem(bookData) {
     const li = document.createElement('li');
     const titleSpan = document.createElement('span');
     const authorSpan = document.createElement('span');
@@ -108,13 +131,13 @@ function addBookItem(title, author) {
         li.classList.toggle('done');
     });
 
-    titleSpan.textContent = title;
-    authorSpan.textContent = ` by ${author}`;
+    titleSpan.textContent = bookData.title;
+    authorSpan.textContent = ` by ${bookData.author}`;
     deleteBtn.textContent = 'Delete';
     authorSpan.classList.add('author-text');
 
-    deleteBtn.addEventListener('click', () => {
-        bookList.removeChild(li);
+    deleteBtn.addEventListener('click', function() {
+        removeBook(bookData, li);
     });
 
     li.appendChild(checkbox);
@@ -126,11 +149,17 @@ function addBookItem(title, author) {
 
 }
 
-async function postBook(bookTitle, authorName) {
-    const bookData = {
-        title: bookTitle,
-        author: authorName
-    };
+function removeBook(bookData, bookItem) {
+    bookList.removeChild(bookItem);
+    const index = inputBooks.findIndex(book => book.title === bookData.title && book.author === bookData.author);
+
+    if (index !== -1) {
+        inputBooks.splice(index, 1);
+    }
+
+}
+
+async function postBook(bookData) {
 
     try {
         const response = await fetch('http://localhost:3000/add-book', {
@@ -148,5 +177,37 @@ async function postBook(bookTitle, authorName) {
         console.log('Success:', data);
     } catch (error) {
         console.error('Error:', error);
+    }
+}
+
+async function fetchMyBooks() {
+    console.log("fetchingbooks...")
+    try {
+        // Make a GET request to the /my-books endpoint
+        const response = await fetch('http://localhost:3000/my-books', {
+            method: 'GET',
+            credentials: 'include', // Necessary for including the session cookie with the request
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const books = await response.json(); // Parse the JSON response
+
+        console.log('Fetched Books:', books);
+        books.forEach(book => {
+            const bookData = {
+                title: book.title,
+                author: book.author
+            };
+            inputBooks.push(bookData)
+            addBookItem(bookData)
+        });
+    } catch (error) {
+        console.error('Error fetching books:', error);
     }
 }
