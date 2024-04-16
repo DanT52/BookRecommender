@@ -1,9 +1,11 @@
 # BookRecommender
 
-next steps
+## next steps:
 
-use classes
+### by Friday (4/1()
+- use classes
+- avoid global vars
 
-avoid global vars
-
-book recomendation part
+### by Sunday (4/21)
+- book recommendation part
+- Hosted online
