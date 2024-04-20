@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
-const Book = require('./book-model.js');
+const Book = require('./models/book-model.js');
 
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+
 app.use(express.json());
 
 const corsOptions = {
