@@ -7,6 +7,7 @@ class BookManager {
         this.bookService = bookService;
         this.authService = authService;
         this.books = [];
+        this.bookRecs = [];
 
         addBookBtn.addEventListener('click', () => this.addBook());
         inputTitle.addEventListener('keypress', (event) => this.submitBook(event));
@@ -24,6 +25,7 @@ class BookManager {
     }
 
     addBook() {
+        console.log(this.books)
         const inputTitle = document.getElementById('input-title');
         const inputAuthor = document.getElementById('input-author');
         const bookTitle = inputTitle.value.trim();
@@ -52,19 +54,27 @@ class BookManager {
             this.bookService.postBook(bookData);
         }
     }
+    addRecommendation(bookData) {
+        this.bookRecs.push(bookData)
+        this.addBookItem(bookData, true);
+        if (this.authService.isAuthenticated){
+            //this.bookService.postBookRec(bookData);
+        }
+    }
 
-    addBookItem(bookData) {
-        const bookList = document.getElementById('book-list');
+    addBookItem(bookData, recommendation = false) {
+        const bookList = document.getElementById(recommendation ? 'book-recs' : 'book-list');
         const li = document.createElement('li');
         const titleSpan = document.createElement('span');
         const authorSpan = document.createElement('span');
         const deleteBtn = document.createElement('button');
     
-        li.addEventListener('click', () => {
-            li.classList.toggle('done');
-    
-        });
-        
+        // This event listener is added only when the recommendation flag is not set.
+        if (!recommendation) {
+            li.addEventListener('click', () => {
+                li.classList.toggle('selected');
+            });
+        }
     
         titleSpan.textContent = bookData.title;
         authorSpan.textContent = ` by ${bookData.author}`;
@@ -75,16 +85,15 @@ class BookManager {
             this.removeBook(bookData, li);
         });
     
-    
         li.appendChild(titleSpan);
         li.appendChild(authorSpan);
         li.appendChild(deleteBtn);
     
         bookList.appendChild(li);
-    
     }
+    
 
-    removeBook(bookData, bookItem) {
+    removeBook(bookData, bookItem, recommendation = false) {
         const bookList = document.getElementById('book-list');
         bookList.removeChild(bookItem);
         const index = this.books.findIndex(book => book.title === bookData.title && book.author === bookData.author);
@@ -94,7 +103,8 @@ class BookManager {
         }
     
         if (this.authService.isAuthenticated) {
-            this.bookService.deleteBook(bookData);
+            if (!recommendation) this.bookService.deleteBook(bookData);
+            //else this.bookService.deleteRecommendation(bookData);
         }
     
     }

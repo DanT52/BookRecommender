@@ -45,13 +45,13 @@ h1 {
   cursor: pointer;
 }
 
-#book-list {
+#book-list, #book-recs {
   list-style-type: none;
   padding: 0;
 }
 
-#book-list li {
-  background-color: #f9f9f9;
+#book-list li, #book-recs li {
+  background-color: #eeeeee;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
@@ -61,12 +61,12 @@ h1 {
   cursor: pointer;
 }
 
-#book-list li span {
+#book-list li span, #book-recs li span {
   flex-grow: 1;
   margin-right: 10px;
 }
 
-#book-list li button {
+#book-list li button, #book-recs li button {
   background-color: #af4c4c;
   color: #fff;
   border: none;
@@ -75,12 +75,12 @@ h1 {
   cursor: pointer;
 }
 
-#book-list li.done span {
+#book-list li.selected span {
   font-weight: 520;
   color: #001e44;
 }
-#book-list li.done {
-  background-color: #e0f4fa;
+#book-list li.selected {
+  background-color: #c5effc;
 }
 
 .author-text {

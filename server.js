@@ -5,6 +5,8 @@ const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
 const Book = require('./models/book-model.js');
+const recommendBooks = require('./bookRecommender');
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -24,12 +26,9 @@ require('./passport-setup');
 
 
 // Connect to MongoDB
-
 mongoose.connect(process.env.MONGODB_URI, {
   dbName: "book_recommender",
 })
-
-
 
 // Session middleware
 app.use(session({
@@ -51,7 +50,6 @@ app.get('/auth/google', passport.authenticate('google', {
   // Callback route for google to redirect to
   app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // User is now authenticated and can be redirected to another route or page
-    //res.send('You reached the callback URI');
     res.redirect('http://localhost:5500/close.html');
 });
   
@@ -86,14 +84,31 @@ app.post('/add-book', (req, res) => {
     .catch(err => res.status(400).json({ message: 'Error saving book', error: err }));
 });
 
-app.get('/my-books', (req, res) => {
+app.get('/my-books', async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.status(401).json({ message: 'User is not authenticated' });
   }
 
-  Book.find({ user: req.user._id })
-    .then(books => res.json(books))
-    .catch(err => res.status(400).json({ message: 'Error fetching books', error: err }));
+  try {
+    const books = await Book.find({ user: req.user._id });
+    res.json(books);
+  } catch (err) {
+    res.status(400).json({ message: 'Error fetching books', error: err });
+  }
+});
+
+
+app.get('/recommendations', async (req, res) => {
+  try {
+    const { booksToBaseRecommendationOn, booksToNotRecommend } = req.body;
+
+    const recommendations = await recommendBooks(booksToBaseRecommendationOn, booksToNotRecommend, 3);
+    console.log('Recommended Books:', recommendations);
+    res.json(recommendations);
+  } catch (error) {
+    console.error('Error recommending books:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 
