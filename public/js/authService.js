@@ -18,6 +18,7 @@ class AuthService {
         try {
             const response = await fetch('https://bookrecommender-o3nk.onrender.com/auth/status', { credentials: 'include' });
             const data = await response.json();
+            console.log(data.isAuthenticated)
             this.isAuthenticated = data.isAuthenticated;
             this.updateSignInButton(this.isAuthenticated);
         } catch (error) {
