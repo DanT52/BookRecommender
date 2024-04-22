@@ -2,7 +2,9 @@
 
 A web application designed to help users discover book recommendations based on books they input.
 
-Live Application: [https://dant52.github.io/BookRecommender/](https://dant52.github.io/BookRecommender/).
+Live Application: [Book Recommender](https://dant52.github.io/BookRecommender/)
+
+Live Application: [Book Recommender (No Login)](https://bookrecommender-o3nk.onrender.com/).
 
 ## Features
 
@@ -19,7 +21,7 @@ Live Application: [https://dant52.github.io/BookRecommender/](https://dant52.git
 ## Live Access
 
 - **Front End**: Hosted on Github Pages.
-- **Back End**: Hosted on render.com's free tier; please be patient with the initial load time, as it may be a bit slow.
+- **Back End (FullVersion)**: Hosted on render.com's free tier; please be patient with the initial load time, as it may be a bit slow.
 
 ## Local Development
 
@@ -38,19 +40,18 @@ Replace `your-google-client-id`, `your-google-client-secret`, `your-mongodb-uri`
 ## Setup and Running Locally
 
 1. Clone the repository and switch to the `forlocalhost` branch.
-2. Change to the api directory
-3. Install the dependencies:
+2. Install the dependencies:
 
     ```bash
     npm install
     ```
 
-4. Start the server:
+3. Start the server:
 
     ```bash
     npm start
     ```
 
-5. Run the front end from /public, on port 5500 using something like Live Server in VS code.
+4. Run the front end from localhost:3000
 
 Remember to ensure that all the services and databases that the application depends on are accessible from your local setup.
