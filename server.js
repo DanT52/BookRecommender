@@ -64,7 +64,6 @@ app.get('/auth/logout', (req, res) => {
 });
 
 app.get('/auth/status', (req, res) => {
-  console.log(req.session);
   res.json({ isAuthenticated: req.isAuthenticated() }); // Returns true if user is logged in
 });
 
@@ -107,8 +106,6 @@ app.post('/recommendations', async (req, res) => {
     const { booksToBaseRecommendationOn, booksToNotRecommend } = req.body;
 
     const recommendations = await recommendBooks(booksToBaseRecommendationOn, booksToNotRecommend, 3);
-    console.log('booksToBaseRecommendationOn:', booksToBaseRecommendationOn);
-    console.log('Recommended Books:', recommendations);
     res.json(recommendations);
   } catch (error) {
     console.error('Error recommending books:', error);

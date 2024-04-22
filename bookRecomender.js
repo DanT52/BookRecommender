@@ -21,7 +21,7 @@ async function recommendBooks(booksToBaseRecommendationOn, booksToNotRecommend, 
     
   try {
     
-    console.log('Prompt:', prompt);
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
