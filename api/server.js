@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://dant52.github.io', // Allow only your frontend to make requests
+  origin: 'http://localhost:5500', // Allow only your frontend to make requests
   credentials: true, // Allow cookies to be sent with requests
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Specify which HTTP methods are allowed
 };
@@ -50,7 +50,7 @@ app.get('/auth/google', passport.authenticate('google', {
   // Callback route for google to redirect to
   app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // User is now authenticated and can be redirected to another route or page
-    res.redirect('https://dant52.github.io/BookRecommender/close.html');
+    res.redirect('http://localhost:5500/public/close.html');
 });
   
 
