@@ -11,17 +11,14 @@
 - Hosted online
 
 
-rec part steps:
 
-in book manager add listener for when recommend is pressed 
-    check for errors like no books selected or none there.
-    send call to book service to get these, then add them
 
-so i need to make a book service function to get recommendations
+Features
 
-the final part will be to add saving and deleting to the recommended books,
-show loading when recommend is pressed.
-have the recommended Books section not show up unless there is at least one recommended book already present.
-    this could be done with like .visible class or soemthing
+add books to your list,
 
-estimated time to complete is like 4 hours cause i also need to host it.
+With login books you add to your Booklist are saved on your account
+
+Recommendations are not saved to the cloud. 
+
+Everything is saved to local storage if you do not want to login.

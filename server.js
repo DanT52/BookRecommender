@@ -5,7 +5,7 @@ const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
 const Book = require('./models/book-model.js');
-const recommendBooks = require('./bookRecommender');
+const recommendBooks = require('./bookRecomender.js');
 
 
 
@@ -98,11 +98,12 @@ app.get('/my-books', async (req, res) => {
 });
 
 
-app.get('/recommendations', async (req, res) => {
+app.post('/recommendations', async (req, res) => {
   try {
     const { booksToBaseRecommendationOn, booksToNotRecommend } = req.body;
 
     const recommendations = await recommendBooks(booksToBaseRecommendationOn, booksToNotRecommend, 3);
+    console.log('booksToBaseRecommendationOn:', booksToBaseRecommendationOn);
     console.log('Recommended Books:', recommendations);
     res.json(recommendations);
   } catch (error) {
