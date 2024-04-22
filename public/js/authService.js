@@ -7,6 +7,8 @@ class AuthService {
             if (event.origin === 'https://dant52.github.io/' && event.data === 'authenticated') {
                 console.log('User authenticated!');
                 window.location.reload();
+            } else {
+                console.log("failed to authenticate user");
             }
         });
         
