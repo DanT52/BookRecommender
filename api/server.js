@@ -42,7 +42,9 @@ app.use(session({
     collection: "sessions"
   }),
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    secure: 1,
+    sameSite: "lax"
   }
 }));
 
@@ -70,6 +72,7 @@ app.get('/auth/logout', (req, res) => {
 });
 
 app.get('/auth/status', (req, res) => {
+  console.log(req.session);
   res.json({ isAuthenticated: req.isAuthenticated() }); // Returns true if user is logged in
 });
 
