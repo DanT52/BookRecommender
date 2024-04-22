@@ -1,5 +1,5 @@
 class BookManager {
-    constructor(bookService, authService) {
+    constructor(bookService) {
         const inputTitle = document.getElementById('input-title');
         const inputAuthor = document.getElementById('input-author');
         const addBookBtn = document.getElementById('add-book');
@@ -7,7 +7,6 @@ class BookManager {
         const clearRecommendations = document.getElementById('clearRecs');
 
         this.bookService = bookService;
-        this.authService = authService;
         this.books = [];
         this.bookRecs = [];
 
@@ -54,9 +53,7 @@ class BookManager {
         inputTitle.value = '';
         inputAuthor.value = '';
         
-        if (this.authService.isAuthenticated){
-            this.bookService.postBook(bookData);
-        }
+
     }
     addRecommendation(bookData) {
         this.addBookItem(bookData, true);
@@ -166,24 +163,10 @@ class BookManager {
         }
 
     
-        if (this.authService.isAuthenticated) {
-            if (!recommendation) this.bookService.deleteBook(bookData);
-        }
+
     
     }
 
-    async loadBooksFromServer() {
-        const loadedBooks = await this.bookService.fetchMyBooks();
-        loadedBooks.forEach(book => {
-            const bookData = {
-                title: book.title,
-                author: book.author
-            };
-            this.books.push(bookData)
-            this.addBookItem(bookData)
-        })
-        
-    }
 
     async recommendBooks() {
         const checkedBooks = document.querySelectorAll('#book-list li.selected');
