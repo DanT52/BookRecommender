@@ -50,7 +50,7 @@ app.get('/auth/google', passport.authenticate('google', {
   // Callback route for google to redirect to
   app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // User is now authenticated and can be redirected to another route or page
-    res.redirect('http://localhost:5500/close.html');
+    res.redirect('https://dant52.github.io/BookRecommender/close.html');
 });
   
 
