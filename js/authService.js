@@ -4,11 +4,11 @@ class AuthService {
 
         window.addEventListener('message', (event) => {
             // Make sure the message is from popup and contains the expected data
-            if (event.origin === 'https://dant52.github.io/' && event.data === 'authenticated') {
+            if (event.origin === 'https://dant52.github.io' && event.data === 'authenticated') {
                 console.log('User authenticated!');
                 window.location.reload();
             } else {
-                console.log("failed to authenticate user");
+                console.log("failed to authenticate user" + event.origin + " " + event.data);
             }
         });
         
