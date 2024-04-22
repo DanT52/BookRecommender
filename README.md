@@ -2,7 +2,8 @@
 
 A web application designed to help users discover book recommendations based on books they input.
 
-Live Application: [Book Recommender (No Login)](https://bookrecommender-o3nk.onrender.com/).
+Live Application: [Book Recommender](https://bookrecommender-o3nk.onrender.com/).
+note: may take up to 50 seconds to load (on render free teir only starts the app when there is activity)
 
 ## Features
 
