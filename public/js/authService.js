@@ -4,7 +4,7 @@ class AuthService {
 
         window.addEventListener('message', (event) => {
             // Make sure the message is from popup and contains the expected data
-            if (event.origin === 'https://dant52.github.io' && event.data === 'authenticated') {
+            if (event.origin === window.location.origin && event.data === 'authenticated') {
                 console.log('User authenticated!');
                 window.location.reload();
             } else {
@@ -16,7 +16,7 @@ class AuthService {
 
     async checkAuthStatus() {
         try {
-            const response = await fetch('https://bookrecommender-o3nk.onrender.com/auth/status', { credentials: 'include' });
+            const response = await fetch('/auth/status', { credentials: 'include' });
             const data = await response.json();
             console.log(data.isAuthenticated)
             this.isAuthenticated = data.isAuthenticated;
@@ -29,14 +29,14 @@ class AuthService {
     }
 
     signOut() {
-        fetch('https://bookrecommender-o3nk.onrender.com/auth/logout', { credentials: 'include' })
+        fetch('/auth/logout', { credentials: 'include' })
         setTimeout(() => {
             window.location.reload();
         }, 1000);
     }
 
     initiateGoogleOAuth() {
-        window.open('https://bookrecommender-o3nk.onrender.com/auth/google', 'GoogleOAuthLogin', 'width=500,height=600');
+        window.open('/auth/google', 'GoogleOAuthLogin', 'width=500,height=600');
     }
 
     updateSignInButton(isLoggedIn) {
