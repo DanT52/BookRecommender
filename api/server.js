@@ -6,6 +6,7 @@ const session = require('express-session');
 const cors = require('cors');
 const Book = require('./models/book-model.js');
 const recommendBooks = require('./bookRecomender.js');
+const MongoStore = require('connect-mongo');
 
 
 
@@ -34,7 +35,15 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: MongoStore.create({ // Configure connect-mongo
+    mongoUrl: process.env.MONGODB_URI,
+    dbName: "book_recommender",
+    collection: "sessions"
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+  }
 }));
 
 // Initialize Passport and session
