@@ -5,7 +5,9 @@
 </head>
 <body>
   <script>
-    window.opener.postMessage('authenticated', 'https://dant52.github.io');
+    // Use the origin of the opener window, if available
+    var targetOrigin = window.opener ? window.opener.location.origin : '*';
+    window.opener.postMessage('authenticated', targetOrigin);
     window.close();
   </script>
 </body>

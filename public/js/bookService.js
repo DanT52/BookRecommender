@@ -1,7 +1,7 @@
 class BookService {
     async postBook(bookData) {
         try {
-            const response = await fetch('https://bookrecommender-o3nk.onrender.com/add-book', {
+            const response = await fetch('/add-book', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -17,7 +17,7 @@ class BookService {
     async fetchMyBooks() {
         console.log("fetching books...");
         try {
-            const response = await fetch('https://bookrecommender-o3nk.onrender.com/my-books', {
+            const response = await fetch('/my-books', {
                 method: 'GET',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
@@ -33,7 +33,7 @@ class BookService {
 
     async deleteBook(bookData) {
         try {
-            const response = await fetch('https://bookrecommender-o3nk.onrender.com/delete-book', {
+            const response = await fetch('/delete-book', {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -49,7 +49,7 @@ class BookService {
 
     async fetchRecommendations(booksToBaseRecommendationOn, booksToNotRecommend) {
         try {
-            const response = await fetch('https://bookrecommender-o3nk.onrender.com/recommendations', {
+            const response = await fetch('/recommendations', {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
