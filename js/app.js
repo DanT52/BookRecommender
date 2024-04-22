@@ -11,6 +11,9 @@ async function domLoaded() {
 
     if (authService.isAuthenticated) {
         bookManager.loadBooksFromServer();
+    } else {
+        bookManager.loadFromLocal();
     }
+    bookManager.loadFromLocal(true)
 }
 

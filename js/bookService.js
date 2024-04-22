@@ -46,5 +46,25 @@ class BookService {
             console.error('Error:', error);
         }
     }
+
+    async fetchRecommendations(booksToBaseRecommendationOn, booksToNotRecommend) {
+        try {
+            const response = await fetch('http://localhost:3000/recommendations', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ booksToBaseRecommendationOn, booksToNotRecommend })
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const recommendations = await JSON.parse(await response.json())
+
+
+            console.log('Recommendations:', recommendations);
+            return recommendations;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 }
 

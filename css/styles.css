@@ -5,7 +5,7 @@ body {
 
 .container {
   position: relative;
-  max-width: 500px;
+  max-width: 700px;
   margin: 0 auto;
   background-color: #fff;
   padding: 20px;
@@ -29,12 +29,14 @@ h1 {
   margin: 0 5px; /* Add some spacing between elements */
 }
 
-#input-book {
+#input-title, #input-author {
   flex-grow: 1;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  min-width: 30px;
 }
+
 
 #add-book {
   background-color: #4caf50;
@@ -74,6 +76,10 @@ h1 {
   padding: 5px 10px;
   cursor: pointer;
 }
+#book-list li button:hover, #book-recs li button:hover {
+  background-color: #d9534f;
+}
+
 
 #book-list li.selected span {
   font-weight: 520;
@@ -123,3 +129,49 @@ h1 {
 #login:hover {
   background-color: #2B7DE9;
 }
+
+.recommendedBooksTitle {
+  display: none; 
+}
+
+.recommendedBooksTitle.visible {
+  display: block;
+}
+
+
+
+#book-list li .search-btn, #book-recs li .search-btn {
+  background-color: rgb(20, 151, 20);  
+  color: white;             
+  border: none;             
+  margin-right: 10px;       
+  padding: 5px 10px;        
+  border-radius: 4px;       
+}
+
+
+#book-list li .search-btn:hover, #book-recs li .search-btn:hover {
+  background-color: rgb(4, 209, 4);  
+}
+
+
+.clearRecommendations {
+  display: none;
+}
+.clearRecommendations.visible {
+  display: block;
+  margin: 0 auto;
+  background-color: #af7c4c;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clearRecommendations:hover {
+  background-color: rgb(156, 5, 0);
+}
+
