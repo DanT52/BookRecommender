@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:5500', // Allow only your frontend to make requests
+  origin: 'https://dant52.github.io', // Allow only your frontend to make requests
   credentials: true, // Allow cookies to be sent with requests
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Specify which HTTP methods are allowed
 };
