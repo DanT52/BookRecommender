@@ -6,6 +6,7 @@ const session = require('express-session');
 const cors = require('cors');
 const Book = require('./models/book-model.js');
 const recommendBooks = require('./bookRecomender.js');
+const MongoStore = require('connect-mongo');
 
 
 
@@ -15,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://dant52.github.io', // Allow only your frontend to make requests
+  origin: 'http://localhost:5500', // Allow only your frontend to make requests
   credentials: true, // Allow cookies to be sent with requests
   methods: ['GET', 'POST', 'PUT', 'DELETE'] // Specify which HTTP methods are allowed
 };
@@ -34,7 +35,15 @@ mongoose.connect(process.env.MONGODB_URI, {
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: MongoStore.create({ // Configure connect-mongo
+    mongoUrl: process.env.MONGODB_URI,
+    dbName: "book_recommender",
+    collection: "sessions"
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+  }
 }));
 
 // Initialize Passport and session
@@ -50,7 +59,7 @@ app.get('/auth/google', passport.authenticate('google', {
   // Callback route for google to redirect to
   app.get('/auth/google/redirect', passport.authenticate('google'), (req, res) => {
     // User is now authenticated and can be redirected to another route or page
-    res.redirect('https://dant52.github.io/BookRecommender/close.html');
+    res.redirect('http://localhost:5500/public/close.html');
 });
   
 
