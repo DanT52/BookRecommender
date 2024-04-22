@@ -2,8 +2,6 @@
 
 A web application designed to help users discover book recommendations based on books they input.
 
-Live Application: [Book Recommender](https://dant52.github.io/BookRecommender/)
-
 Live Application: [Book Recommender (No Login)](https://bookrecommender-o3nk.onrender.com/).
 
 ## Features
@@ -20,8 +18,7 @@ Live Application: [Book Recommender (No Login)](https://bookrecommender-o3nk.onr
 
 ## Live Access
 
-- **Front End**: Hosted on Github Pages.
-- **Back End (FullVersion)**: Hosted on render.com's free tier; please be patient with the initial load time, as it may be a bit slow.
+- **Express Server**: Hosted on render.com's free tier; please be patient with the initial load time, as it may be a bit slow.
 
 ## Local Development
 
