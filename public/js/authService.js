@@ -16,7 +16,7 @@ class AuthService {
 
     async checkAuthStatus() {
         try {
-            const response = await fetch('http://localhost:3000/auth/status', { credentials: 'include' });
+            const response = await fetch('https://bookrecommender-o3nk.onrender.com:3000/auth/status', { credentials: 'include' });
             const data = await response.json();
             this.isAuthenticated = data.isAuthenticated;
             this.updateSignInButton(this.isAuthenticated);
@@ -28,14 +28,14 @@ class AuthService {
     }
 
     signOut() {
-        fetch('http://localhost:3000/auth/logout', { credentials: 'include' })
+        fetch('https://bookrecommender-o3nk.onrender.com:3000/auth/logout', { credentials: 'include' })
         setTimeout(() => {
             window.location.reload();
         }, 1000);
     }
 
     initiateGoogleOAuth() {
-        window.open('http://localhost:3000/auth/google', 'GoogleOAuthLogin', 'width=500,height=600');
+        window.open('https://bookrecommender-o3nk.onrender.com:3000/auth/google', 'GoogleOAuthLogin', 'width=500,height=600');
     }
 
     updateSignInButton(isLoggedIn) {
