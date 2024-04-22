@@ -38,18 +38,19 @@ Replace `your-google-client-id`, `your-google-client-secret`, `your-mongodb-uri`
 ## Setup and Running Locally
 
 1. Clone the repository and switch to the `forlocalhost` branch.
-2. Install the dependencies:
+2. Change to the api directory
+3. Install the dependencies:
 
     ```bash
     npm install
     ```
 
-3. Start the server:
+4. Start the server:
 
     ```bash
     npm start
     ```
 
-4. Open your browser and navigate to `http://localhost:3000` to view the application.
+5. Run the front end from /public, on port 5500 using something like Live Server in VS code.
 
 Remember to ensure that all the services and databases that the application depends on are accessible from your local setup.
