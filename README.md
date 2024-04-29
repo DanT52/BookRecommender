@@ -2,6 +2,8 @@
 
 A web application designed to help users discover book recommendations based on books they input.
 
+The Recommendations are given with the help of OpenAI's API.
+
 Live Application: [Book Recommender](https://bookrecommender-o3nk.onrender.com/).
 
 note: may take up to 50 seconds to load (on render free teir only starts the app when there is activity)
