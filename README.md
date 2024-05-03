@@ -8,6 +8,9 @@ Live Application: [Book Recommender](https://bookrecommender-o3nk.onrender.com/)
 
 note: may take up to 50 seconds to load (on render free teir only starts the app when there is activity)
 
+
+![](https://s7.ezgif.com/tmp/ezgif-7-6dbe7b29ba.gif)
+
 ## Features
 
 - **Book List Management**: Easily add books to your personalized list.
