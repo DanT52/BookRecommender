@@ -9,7 +9,7 @@ Live Application: [Book Recommender](https://bookrecommender-o3nk.onrender.com/)
 note: may take up to 50 seconds to load (on render free teir only starts the app when there is activity)
 
 
-![](https://s7.ezgif.com/tmp/ezgif-7-6dbe7b29ba.gif)
+![]([https://s7.ezgif.com/tmp/ezgif-7-6dbe7b29ba.gif](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2E1aWhpNnN3Z3l4djFmOGZ6OWExa2djbDZsYnl2cGRvMGpnc3pkMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/j9yaP7crfqcRRWg61I/giphy.gif))
 
 ## Features
 
